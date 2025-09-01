@@ -1,9 +1,12 @@
-package dev.joaofvic.NinjaRegistry;
+package dev.joaofvic.NinjaRegistry.Ninjas;
 
+import dev.joaofvic.NinjaRegistry.Missions.MissionsModel;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,6 +19,9 @@ public class NinjaModel {
 	private String name;
 	private String email;
 	private int age;
+	@ManyToOne
+	@JoinColumn(name = "missions_id")
+	private MissionsModel missions;
 	
 	public NinjaModel() {
 	}

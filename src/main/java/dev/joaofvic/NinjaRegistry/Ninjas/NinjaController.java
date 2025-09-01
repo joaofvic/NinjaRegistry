@@ -1,4 +1,4 @@
-package dev.joaofvic.NinjaRegistry;
+package dev.joaofvic.NinjaRegistry.Ninjas;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

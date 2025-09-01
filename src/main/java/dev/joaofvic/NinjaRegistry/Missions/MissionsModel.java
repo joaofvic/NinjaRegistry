@@ -1,0 +1,26 @@
+package dev.joaofvic.NinjaRegistry.Missions;
+
+import java.util.List;
+
+import dev.joaofvic.NinjaRegistry.Ninjas.NinjaModel;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "tb_missions")
+public class MissionsModel {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String name;
+	private String difficulty;
+	@OneToMany(mappedBy = "missions")
+	private List<NinjaModel> ninjas;
+	
+	
+}
