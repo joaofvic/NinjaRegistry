@@ -8,9 +8,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 
 @Entity
 @Table(name = "tb_register")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class NinjaModel {
 	
 	@Id
@@ -23,37 +30,5 @@ public class NinjaModel {
 	@JoinColumn(name = "missions_id")
 	private MissionsModel missions;
 	
-	public NinjaModel() {
-	}
-
-	public NinjaModel(String name, String email, int age) {
-		this.name = name;
-		this.email = email;
-		this.age = age;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public int getAge() {
-		return age;
-	}
-
-	public void setAge(int age) {
-		this.age = age;
-	}
 	
 }
