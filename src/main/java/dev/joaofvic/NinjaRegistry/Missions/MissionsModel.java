@@ -2,6 +2,7 @@ package dev.joaofvic.NinjaRegistry.Missions;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.joaofvic.NinjaRegistry.Ninjas.NinjaModel;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,6 +30,7 @@ public class MissionsModel {
 	private String difficulty;
 
 	@OneToMany(mappedBy = "missions")
+    @JsonIgnore
 	private List<NinjaModel> ninjas;
 	
 	
