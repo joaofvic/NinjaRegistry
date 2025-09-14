@@ -9,8 +9,10 @@ import java.util.Optional;
 public class NinjaService {
 
     private NinjaRepository ninjaRepository;
+    private NinjaMapper ninjaMapper;
 
-    public NinjaService(NinjaRepository ninjaRepository) {
+    public NinjaService(NinjaMapper ninjaMapper, NinjaRepository ninjaRepository) {
+        this.ninjaMapper = ninjaMapper;
         this.ninjaRepository = ninjaRepository;
     }
 
@@ -23,8 +25,10 @@ public class NinjaService {
         return ninjaModel.orElse(null);
     }
 
-    public NinjaModel register(NinjaModel ninja) {
-        return ninjaRepository.save(ninja);
+    public NinjaDTO register(NinjaDTO ninjaDTO) {
+        NinjaModel ninja = ninjaMapper.map(ninjaDTO);
+        ninja = ninjaRepository.save(ninja);
+        return ninjaMapper.map(ninja);
     }
     public void deleteId(Long id) {
         ninjaRepository.deleteById(id);
