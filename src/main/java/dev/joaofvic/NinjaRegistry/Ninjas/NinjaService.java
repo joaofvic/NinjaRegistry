@@ -23,4 +23,8 @@ public class NinjaService {
         return ninjaModel.orElse(null);
     }
 
+    public NinjaModel register(NinjaModel ninja) {
+        return ninjaRepository.save(ninja);
+    }
+
 }

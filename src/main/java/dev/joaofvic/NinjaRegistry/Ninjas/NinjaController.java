@@ -23,8 +23,8 @@ public class NinjaController {
 
     // Add ninja
     @PostMapping("/register")
-    public String register() {
-        return "Ninja created";
+    public NinjaModel register(@RequestBody NinjaModel ninja) {
+        return ninjaService.register(ninja);
     }
 
     // Show ninjas
