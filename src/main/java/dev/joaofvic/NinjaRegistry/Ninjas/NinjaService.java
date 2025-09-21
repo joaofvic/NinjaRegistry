@@ -4,36 +4,49 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class NinjaService {
 
     private NinjaRepository ninjaRepository;
+    private NinjaMapper ninjaMapper;
 
-    public NinjaService(NinjaRepository ninjaRepository) {
+    public NinjaService(NinjaMapper ninjaMapper, NinjaRepository ninjaRepository) {
+        this.ninjaMapper = ninjaMapper;
         this.ninjaRepository = ninjaRepository;
     }
 
-    public List<NinjaModel> listNinjas() {
-        return ninjaRepository.findAll();
+    public List<NinjaDTO> listNinjas() {
+        List<NinjaModel> ninjas = ninjaRepository.findAll();
+        return ninjas.stream()
+                .map(ninjaMapper::map)
+                .collect(Collectors.toList());
     }
 
-    public NinjaModel listNinjasId(Long id) {
+    public NinjaDTO listNinjasId(Long id) {
         Optional<NinjaModel> ninjaModel = ninjaRepository.findById(id);
-        return ninjaModel.orElse(null);
+        return ninjaModel.map(ninjaMapper::map).orElse(null);
     }
 
-    public NinjaModel register(NinjaModel ninja) {
-        return ninjaRepository.save(ninja);
+    public NinjaDTO register(NinjaDTO ninjaDTO) {
+        NinjaModel ninja = ninjaMapper.map(ninjaDTO);
+        ninja = ninjaRepository.save(ninja);
+        return ninjaMapper.map(ninja);
     }
     public void deleteId(Long id) {
         ninjaRepository.deleteById(id);
     }
 
-    public NinjaModel changeId(Long id, NinjaModel ninjaUpdated) {
-        if (ninjaRepository.existsById(id)) {
+    public NinjaDTO changeId(Long id, NinjaDTO ninjaDTO) {
+        Optional<NinjaModel> ninjaExistings = ninjaRepository.findById(id);
+
+        if (ninjaExistings.isPresent()) {
+            NinjaModel ninjaUpdated = ninjaMapper.map(ninjaDTO);
             ninjaUpdated.setId(id);
-            return ninjaRepository.save(ninjaUpdated);
+            NinjaModel ninjaSaved = ninjaRepository.save(ninjaUpdated);
+            return ninjaMapper.map(ninjaSaved);
         }
         return null;
     }

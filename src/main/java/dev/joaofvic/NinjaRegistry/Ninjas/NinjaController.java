@@ -11,9 +11,11 @@ import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 public class NinjaController {
 
     private NinjaService ninjaService;
+    private NinjaMapper ninjaMapper;
 
-    public NinjaController(NinjaService ninjaService) {
+    public NinjaController(NinjaService ninjaService, NinjaMapper ninjaMapper) {
         this.ninjaService = ninjaService;
+        this.ninjaMapper = ninjaMapper;
     }
 
     @GetMapping("/welcome")
@@ -23,25 +25,25 @@ public class NinjaController {
 
     // Add ninja
     @PostMapping("/register")
-    public NinjaModel register(@RequestBody NinjaModel ninja) {
-        return ninjaService.register(ninja);
+    public NinjaDTO register(@RequestBody NinjaDTO ninjaDTO) {
+        return ninjaService.register(ninjaDTO);
     }
 
     // Show ninjas
     @GetMapping("/all")
-    public List<NinjaModel> all() {
+    public List<NinjaDTO> all() {
         return ninjaService.listNinjas();
     }
 
     // Show ninjas by Id
     @GetMapping("/all/{id}")
-    public NinjaModel allId(@PathVariable Long id) {
+    public NinjaDTO allId(@PathVariable Long id) {
         return ninjaService.listNinjasId(id);
     }
 
     // Change ninja data
     @PutMapping("/changeId/{id}")
-    public NinjaModel changeId(@PathVariable Long id, @RequestBody NinjaModel ninjaUpdated) {
+    public NinjaDTO changeId(@PathVariable Long id, @RequestBody NinjaDTO ninjaUpdated) {
         return ninjaService.changeId(id, ninjaUpdated);
     }
 
