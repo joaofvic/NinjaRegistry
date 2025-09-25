@@ -12,7 +12,7 @@ import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 @RequestMapping("/ninja")
 public class NinjaController {
 
-    private NinjaService ninjaService;
+    private final NinjaService ninjaService;
     private NinjaMapper ninjaMapper;
 
     public NinjaController(NinjaService ninjaService, NinjaMapper ninjaMapper) {
